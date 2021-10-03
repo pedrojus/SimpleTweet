@@ -6,13 +6,37 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
 
+    <ImageButton
+        android:id="@+id/ibHeart2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ibRetweet"
+        android:backgroundTint="#FFFDFD"
+        android:src="@drawable/ic_vector_heart_stroke" />
+
+    <ImageButton
+        android:id="@+id/ibFollow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ibHeart2"
+        android:backgroundTint="#FFFDFD"
+        android:src="@drawable/ic_vector_follow" />
+
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/tvBody"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="0dp"
         android:layout_toEndOf="@+id/tvScreenName"
         tools:text="Real name" />
 
@@ -38,9 +62,7 @@
         android:id="@+id/ivProfileImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -55,4 +77,15 @@
         android:textSize="16sp"
         android:textStyle="bold"
         tools:text="Username" />
+
+    <ImageButton
+        android:id="@+id/ibRetweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:backgroundTint="#FFFDFD"
+        android:src="@drawable/ic_vector_retweet_stroke" />
 </RelativeLayout>
