@@ -44,7 +44,7 @@
         android:id="@+id/tvTimestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivImage"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
@@ -59,14 +59,6 @@
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         tools:text="Real name" />
-
-    <TextView
-        android:id="@+id/tvTimestamp2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="0dp"
-        tools:text="13m" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -99,4 +91,27 @@
         android:textSize="16sp"
         android:textStyle="bold"
         tools:text="Username" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:adjustViewBounds="true"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <VideoView
+        android:id="@+id/vvVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="127dp"
+        android:layout_alignTop="@+id/ivImage"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="-1dp" />
 </RelativeLayout>

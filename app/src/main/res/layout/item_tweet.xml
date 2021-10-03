@@ -10,9 +10,9 @@
         android:id="@+id/ibHeart2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivImage"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/ibRetweet"
         android:backgroundTint="#FFFDFD"
         android:src="@drawable/ic_vector_heart_stroke" />
@@ -21,9 +21,9 @@
         android:id="@+id/ibFollow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivImage"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/ibHeart2"
         android:backgroundTint="#FFFDFD"
         android:src="@drawable/ic_vector_follow" />
@@ -56,6 +56,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:autoLink="all"
+        android:linksClickable="true"
         tools:text="Sample tweet text!" />
 
     <ImageView
@@ -82,10 +84,35 @@
         android:id="@+id/ibRetweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivImage"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:backgroundTint="#FFFDFD"
         android:src="@drawable/ic_vector_retweet_stroke" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="0dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:adjustViewBounds="true"/>
+
+        <VideoView
+            android:id="@+id/vvVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="127dp"
+            android:layout_alignTop="@+id/ivImage"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="-1dp"
+            />
+
 </RelativeLayout>
