@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -70,6 +71,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     // Define a viewholder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView ivProfileImage;
+        ImageView ivImage;
+        VideoView vvVideo;
         TextView tvBody;
         TextView tvScreenName;
         TextView tvName;
@@ -77,6 +80,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
+            vvVideo = itemView.findViewById(R.id.vvVideo);
+            ivImage = itemView.findViewById(R.id.ivImage);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvName = itemView.findViewById(R.id.tvName);
@@ -90,6 +95,15 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvName.setText(tweet.user.name);
             tvTimestamp.setText(tweet.getFormattedTimestamp());
             Glide.with(context).load(tweet.user.profileImageURL).into(ivProfileImage);
+            if ((tweet.videoUrl == null)) {
+                vvVideo.setVisibility(vvVideo.GONE);
+                Glide.with(context).load(tweet.imageUrl).into(ivImage);
+                return;
+            } else if ((tweet.imageUrl == null)) {
+                ivImage.setVisibility(ivImage.GONE);
+                vvVideo.setVideoPath(tweet.videoUrl);
+                return;
+            }
         }
 
         public void onClick(View view) {
