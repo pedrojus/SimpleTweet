@@ -5,10 +5,12 @@ import com.codepath.apps.restclienttemplate.TimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class Tweet {
 
     public String body;
@@ -36,4 +38,20 @@ public class Tweet {
     public String getFormattedTimestamp () {
         return TimeFormatter.getTimeDifference(createdAt);
     }
+
+    public String getBody() { return body; }
+
+    public void setBody(String body) { this.body = body; }
+
+    public String getCreatedAt() { return createdAt; }
+
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+
+    public long getId() { return id; }
+
+    public void setId(long id) { this.id = id; }
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
 }
