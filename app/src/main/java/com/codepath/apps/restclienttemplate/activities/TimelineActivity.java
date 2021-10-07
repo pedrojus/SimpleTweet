@@ -1,12 +1,21 @@
 package com.codepath.apps.restclienttemplate.activities;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.R;
@@ -18,6 +27,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +36,7 @@ import okhttp3.Headers;
 
 public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
+    private final int REQUEST_CODE = 20;
     TwitterClient client;
     RecyclerView rvTweets;
     List<Tweet> tweets;
@@ -80,6 +91,65 @@ public class TimelineActivity extends AppCompatActivity {
         populateHomeTimeline();
     }
 
+    // Inflate the menu; this adds items to the action bar if it is present.
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.compose) {
+            // Navigate to the compose activity
+            Intent intent = new Intent(this, ComposeActivity.class);
+            someActivityResultLauncher.launch(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        // Get data from intent (tweet)
+                        Intent data = result.getData();
+                        Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+                        // Update the RV with new tweet
+                        // Modify data source of tweets
+                        tweets.add(0, tweet);
+                        // Update the adapter
+                        adapter.notifyItemInserted(0);
+                        rvTweets.smoothScrollToPosition(0);
+                    }
+                }
+            });
+    private void populateHomeTimeline() {
+        client.getHomeTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG, "onSuccess" + json.toString());
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    adapter.clear();
+                    adapter.addAll(Tweet.fromJSONArray(jsonArray));
+                    swipeContainer.setRefreshing(false);
+                } catch (JSONException e) {
+                    Log.e(TAG, "JSON Exception", e);
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.i(TAG, "onFailure" + response, throwable);
+            }
+        });
+    }
+
     // this is where we will make another API call to get the next page of tweets and add the objects to our current list of tweets
     public void loadMoreData() {
         // 1. Send an API request to retrieve appropriate paginated data
@@ -104,29 +174,5 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure for loadMoreData!", throwable);
             }
         }, tweets.get(tweets.size() - 1).id);
-
-
-    }
-    private void populateHomeTimeline() {
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, "onSuccess" + json.toString());
-                JSONArray jsonArray = json.jsonArray;
-                try {
-                    adapter.clear();
-                    adapter.addAll(Tweet.fromJSONArray(jsonArray));
-                    swipeContainer.setRefreshing(false);
-                } catch (JSONException e) {
-                    Log.e(TAG, "JSON Exception", e);
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.i(TAG, "onFailure" + response, throwable);
-            }
-        });
     }
 }
