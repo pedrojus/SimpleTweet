@@ -16,11 +16,12 @@ import java.util.TimeZone;
 public class TimeFormatter {
     public static String getTimeDifference(String rawJsonDate) {
         String time = "";
+        long diff;
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat format = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
         format.setLenient(true);
         try {
-            long diff = (System.currentTimeMillis() - format.parse(rawJsonDate).getTime()) / 1000;
+            diff = (System.currentTimeMillis() - format.parse(rawJsonDate).getTime()) / 1000;
             if (diff < 5)
                 time = "Just now";
             else if (diff < 60)
@@ -43,7 +44,7 @@ public class TimeFormatter {
                             + then.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US)
                             + " " + String.valueOf(then.get(Calendar.YEAR) - 2000);
                 }
-            }
+           }
         }  catch (ParseException e) {
             e.printStackTrace();
         }
