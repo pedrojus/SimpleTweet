@@ -1,14 +1,10 @@
 package com.codepath.apps.restclienttemplate.models;
 
-import android.util.Log;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import com.codepath.apps.restclienttemplate.TimeFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -10,7 +10,7 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.TimeFormatter;
+import com.codepath.apps.restclienttemplate.models.TimeFormatter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
